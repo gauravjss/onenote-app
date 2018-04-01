@@ -1,10 +1,11 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {IngredientModel} from '../shared/ingredient.model';
+import {Subject} from 'rxjs/Subject';
 
 @Injectable()
 export class ShoppingListService {
 
-  ingredientAdded = new EventEmitter<IngredientModel[]>();
+  ingredientAdded = new Subject<IngredientModel[]>();
 
   constructor() { }
 
@@ -19,13 +20,13 @@ export class ShoppingListService {
 
   addIngredient(ingredient:IngredientModel){
     this.ingredients.push(ingredient);
-    this.ingredientAdded.emit(this.getIngredients());
+    this.ingredientAdded.next(this.getIngredients());
   }
 
   addIngredients(ingredients: IngredientModel[]){
     // Spread operator spreads the arry into a list
     this.ingredients.push(...ingredients);
-    this.ingredientAdded.emit(this.getIngredients());
+    this.ingredientAdded.next(this.getIngredients());
   }
 
 }

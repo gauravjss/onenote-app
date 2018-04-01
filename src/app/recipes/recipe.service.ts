@@ -4,9 +4,6 @@ import {IngredientModel} from '../shared/ingredient.model'
 
 @Injectable()
 export class RecipeService {
-
-  recipeSelected = new EventEmitter<RecipeModel>();
-
   constructor() { }
 
   private  recipes:RecipeModel[] = [
@@ -24,6 +21,9 @@ export class RecipeService {
 
   getRecipes(){
     return this.recipes.slice();
+  }
+  getRecipe(index: number){
+    return this.recipes.slice()[index];
   }
 
 }

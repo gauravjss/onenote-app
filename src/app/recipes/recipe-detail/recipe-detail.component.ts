@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {RecipeModel} from '../recipe.model';
-import {IngredientModel} from '../../shared/ingredient.model';
 import {ShoppingListService} from '../../shopping-list/shopping-list.service';
+import {ActivatedRoute, Params, Router} from '@angular/router';
+import {RecipeService} from '../recipe.service';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -10,14 +11,32 @@ import {ShoppingListService} from '../../shopping-list/shopping-list.service';
 })
 export class RecipeDetailComponent implements OnInit {
 
-  @Input()recipeReceived:RecipeModel;
+  recipe: RecipeModel;
+  id: number;
 
-  constructor(private slService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService,
+              private recipeService: RecipeService,
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
+    this.route.params
+      .subscribe(
+        (params: Params) => {
+          this.id = +params['id'];
+          this.recipe = this.recipeService.getRecipe(this.id);
+        }
+      );
   }
 
-  addToShoppingList(){
+  onEditRecipe(){
+    this.router.navigate(['edit'],
+      {relativeTo: this.route});
+   /* this.router.navigate(['../',this.id,'edit'],
+      {relativeTo: this.route});*/
+  }
+
+  onAddToShoppingList(){
 
     /*This approach would emit event each time an ingredient is added.
     this.recipeReceived.ingredients.forEach(
@@ -27,7 +46,7 @@ export class RecipeDetailComponent implements OnInit {
     ); */
 
     // Better Approach of emitting event just once
-    this.slService.addIngredients(this.recipeReceived.ingredients);
+   this.slService.addIngredients(this.recipe.ingredients);
 
   }
 

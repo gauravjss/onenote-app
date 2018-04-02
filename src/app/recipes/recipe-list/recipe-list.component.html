@@ -6,14 +6,17 @@
 </div>
 <hr>
 <div class="row">
-  <div class="col-xs-12" *ngIf="recipes.length > 0">
+  <div class="col-xs-12" *ngIf="recipes.length > 0; else noRecipe">
     <app-recipe-item *ngFor="let recipeEl of recipes; let i = index"
                      [recipe]="recipeEl"
                      [index] = "i">
     </app-recipe-item>
   </div>
-  <h3 *ngIf="recipes.length === 0">
-    Oops - No Recipe Present , Create one to Start !
-  </h3>
+  <ng-template #noRecipe>
+    <h3>
+      Oops - No Recipe Present , Create one to Start !
+    </h3>
+  </ng-template>
+
 </div>
 

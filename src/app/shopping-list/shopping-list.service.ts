@@ -5,8 +5,8 @@ import {Subject} from 'rxjs/Subject';
 @Injectable()
 export class ShoppingListService {
 
-  ingredientAdded = new Subject<IngredientModel[]>();
-
+  ingredientChanged = new Subject<IngredientModel[]>();
+  startedEditing = new Subject<number>();
   constructor() { }
 
   private ingredients:IngredientModel[] = [
@@ -18,15 +18,30 @@ export class ShoppingListService {
     return this.ingredients.slice();
   }
 
+  getIngredient(index: number){
+    return this.ingredients[index];
+  }
+
   addIngredient(ingredient:IngredientModel){
     this.ingredients.push(ingredient);
-    this.ingredientAdded.next(this.getIngredients());
+    this.ingredientChanged.next(this.getIngredients());
   }
 
   addIngredients(ingredients: IngredientModel[]){
     // Spread operator spreads the arry into a list
     this.ingredients.push(...ingredients);
-    this.ingredientAdded.next(this.getIngredients());
+    this.ingredientChanged.next(this.getIngredients());
+  }
+
+  updateIngredient(index: number,
+                   newIngredient: IngredientModel){
+    this.ingredients[index] = newIngredient;
+    this.ingredientChanged.next(this.getIngredients());
+  }
+
+  deleteIngredient(index: number){
+    this.ingredients.splice(index ,1);
+    this.ingredientChanged.next(this.getIngredients());
   }
 
 }

@@ -12,9 +12,11 @@ import {AuthService} from '../auth/auth.service';
 })
 export class HeaderComponent {
 
+  isAuthenticated: boolean = this.authService.isAuthenticated();
+
   constructor(private dsService: DataStorageService,
               private recService: RecipeService,
-              protected authService: AuthService){}
+              private authService: AuthService){}
 
   onSaveData(){
     this.dsService.storeRecipes()

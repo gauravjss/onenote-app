@@ -14,7 +14,7 @@ export class HeaderComponent {
 
   constructor(private dsService: DataStorageService,
               private recService: RecipeService,
-              private authService: AuthService){}
+              protected authService: AuthService){}
 
   onSaveData(){
     this.dsService.storeRecipes()

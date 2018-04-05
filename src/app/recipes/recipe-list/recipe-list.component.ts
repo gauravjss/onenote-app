@@ -26,14 +26,15 @@ export class RecipeListComponent implements OnInit, OnDestroy{
         this.recipes = recipes;
       }
       );
-    this.dsService.getRecipes().subscribe(
+   this.recipes = this.recipeService.getRecipes();
+    /*this.dsService.getRecipes().subscribe(
       (response: RecipeModel[]) => {
         // Setting Response to the current recipe list to be displayed initially
         this.recipes = response;
         // Setting Response to the recipe list in the service which is subsequently used to edit the recipe.
         this.recipeService.setRecipes(response);
       }
-    );
+    );*/
   }
 
   onNewRecipe(){

@@ -7,11 +7,6 @@ import * as firebase from 'firebase';
   }
 )
 export class AppComponent implements OnInit{
-  loadedFeature: string = 'recipe';
-
-  onNavigate(feature:string){
-    this.loadedFeature = feature;
-  }
 
   ngOnInit(){
     firebase.initializeApp({

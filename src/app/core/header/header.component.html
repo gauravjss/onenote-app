@@ -1,17 +1,24 @@
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a routerLink="/" style="cursor: pointer" class="navbar-brand" > Recipe Book</a>
+     <!-- <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarResponsive" aria-expanded="false">-->
+        <button class="navbar-toggle collapsed" type="button" (click)="onCollapsedToggle()"  >
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a routerLink="/" style="cursor: pointer" class="navbar-brand js-scroll-trigger" > Recipe Book</a>
     </div>
 
-    <div class="collapse  navbar-collapse">
+    <div class="container-fluid navbar-collapse" [ngClass]="isCollapsed ? 'collapse' : ''"  appNavbar id="navbarResponsive">
       <ul class="nav navbar-nav" *ngIf="isAuthenticated()">
-        <li routerLinkActive="active"><a routerLink="/recipes">Recipes</a></li>
-        <li routerLinkActive="active"><a routerLink="/shopping-list">Shopping List</a></li>
+        <li routerLinkActive="active"><a routerLink="/recipes" (click)="onCollapsedToggle()" >Recipes</a></li>
+        <li routerLinkActive="active"><a routerLink="/shopping-list" (click)="onCollapsedToggle()"> Shopping List</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right" *ngIf="!isAuthenticated(); else unauth">
-        <li><a routerLink="/signup">Register</a></li>
-        <li><a routerLink="/signin">Login</a></li>
+        <li><a routerLink="/signup" (click)="onCollapsedToggle()" >Register</a></li>
+        <li><a routerLink="/signin" (click)="onCollapsedToggle()" >Login</a></li>
       </ul>
       <ng-template #unauth>
       <ul class="nav navbar-nav navbar-right" >
@@ -26,5 +33,5 @@
       </ul>
       </ng-template>
     </div>
-  </div>
+  </div><!-- /.container-fluid -->
 </nav>

@@ -11,6 +11,7 @@ import {AuthService} from '../../auth/auth.service';
 })
 export class HeaderComponent {
 
+  isCollapsed = true;
   isAuthenticated(): boolean {
     return this.authService.isAuthenticated();
   }
@@ -20,6 +21,7 @@ export class HeaderComponent {
               private authService: AuthService){}
 
   onSaveData(){
+    this.isCollapsed = !this.isCollapsed;
     this.dsService.storeRecipes()
       .subscribe(
         (response) =>{
@@ -29,6 +31,7 @@ export class HeaderComponent {
   }
 
   onFetchData(){
+    this.isCollapsed = !this.isCollapsed;
     this.dsService.getRecipes().subscribe(
       (response: RecipeModel[]) => {
         console.log(response);
@@ -39,5 +42,10 @@ export class HeaderComponent {
 
   onLogout(){
     this.authService.logout();
+    this.isCollapsed = !this.isCollapsed;
+  }
+
+  onCollapsedToggle(){
+    this.isCollapsed = !this.isCollapsed;
   }
 }

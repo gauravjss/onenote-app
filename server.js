@@ -11,6 +11,10 @@ app.listen(process.env.PORT || 8080,
     console.log("Server Started ");
   });
 
+pp.use(function(req, res, next) {
+  res.status(404).redirect('/');
+});
+
 /*app.get('/', function(request, response) {
   console.error(request);
   response.render('pages/index')
